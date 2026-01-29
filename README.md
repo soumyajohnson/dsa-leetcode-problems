@@ -34,8 +34,6 @@ Whenever a solution is accepted on LeetCode, it is pushed to this repository wit
 
 - **Python**
 
-(Replace or extend with other languages if applicable.)
-
 --------------------------------------------------
 
 **Objectives**
