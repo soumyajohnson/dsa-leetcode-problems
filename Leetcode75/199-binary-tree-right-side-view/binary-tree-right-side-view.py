@@ -11,10 +11,10 @@ class Solution:
         res=[]
         q=deque([root])
         while q:
-            level=len(q)
-            for i in range(level):
+            l=len(q)
+            for i in range(l):
                 node=q.popleft()
-                if i==level-1:
+                if i==l-1:
                     res.append(node.val)
                 if node.left:
                     q.append(node.left)
