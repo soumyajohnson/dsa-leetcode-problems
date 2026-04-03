@@ -1,14 +1,14 @@
 from collections import defaultdict
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        colset,rowset=defaultdict(set),defaultdict(set)
-        boxset=defaultdict(set)
-        for r in range(9):
-            for c in range(9):
-                if board[r][c]!='.':
-                    if board[r][c] in colset[c] or board[r][c] in rowset[r] or board[r][c] in boxset[(r//3,c//3)]:
+        rowset,colset,boxset=defaultdict(set),defaultdict(set),defaultdict(set)
+        for i in range(9):
+            for j in range(9):
+                if board[i][j]!=".":
+                    if board[i][j] in rowset[i] or board[i][j] in colset[j] or board[i][j] in boxset[(i//3,j//3)]:
                         return False
-                    colset[c].add(board[r][c])
-                    rowset[r].add(board[r][c])
-                    boxset[(r//3,c//3)].add(board[r][c])
+                    rowset[i].add(board[i][j])
+                    colset[j].add(board[i][j])
+                    boxset[(i//3,j//3)].add(board[i][j])
         return True
+                
