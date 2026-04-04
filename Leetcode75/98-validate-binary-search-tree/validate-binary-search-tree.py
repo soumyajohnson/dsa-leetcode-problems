@@ -6,10 +6,13 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def dfs(node, low, high):
+        def dfs(node,l,h):
             if not node:
                 return True
-            if not low<node.val<high:
+            if not(l<node.val<h):
                 return False
-            return dfs(node.left,low,node.val) and dfs(node.right, node.val, high)
-        return dfs(root, float("-inf"), float("inf"))
+            left=dfs(node.left,l,node.val)
+            right=dfs(node.right,node.val,h)
+            return left and right
+        return dfs(root, float("-inf"),float("inf"))
+            
