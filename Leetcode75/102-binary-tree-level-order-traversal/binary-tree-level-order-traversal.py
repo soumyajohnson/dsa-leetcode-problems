@@ -8,14 +8,14 @@ class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-        q=deque([root])
         res=[]
+        q=deque([root])
         while q:
-            l=len(q)
             lnodes=[]
+            l=len(q)
             for _ in range(l):
                 node=q.popleft()
-                lnodes.append(node.val)
+                lnodes.append(node.val) 
                 if node.left:
                     q.append(node.left)
                 if node.right:
