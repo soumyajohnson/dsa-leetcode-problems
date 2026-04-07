@@ -3,11 +3,10 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        m,n=len(matrix), len(matrix[0])
-        for i in range(m):
-            for j in range(i,n):
-                matrix[i][j],matrix[j][i]=matrix[j][i],matrix[i][j]
-        print(matrix)
-        for r in matrix:
-            r.reverse()
-        
+        n=len(matrix)
+        for rows in matrix:
+            rows.reverse()
+        for i in range(n):
+            for j in range(n):
+                if i+j<n-1:
+                    matrix[i][j],matrix[n-j-1][n-i-1]=matrix[n-j-1][n-i-1],matrix[i][j]
