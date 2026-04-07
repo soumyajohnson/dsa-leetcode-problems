@@ -3,18 +3,16 @@ class Solution:
         if not isConnected:
             return 0
         n=len(isConnected)
-        visited=[False]*n
+        visited=set()
         count=0
         def dfs(i):
             for j in range(n):
-                if visited[j]==False and isConnected[i][j]==1:
-                    visited[j]=True
+                if j not in visited and isConnected[i][j]==1:
+                    visited.add(j)
                     dfs(j)
         for i in range(n):
-            if visited[i]==False:
-                count+=1
-                visited[i]=True
+            if i not in visited :
+                visited.add(i)
                 dfs(i)
-        
+                count+=1
         return count
-                
