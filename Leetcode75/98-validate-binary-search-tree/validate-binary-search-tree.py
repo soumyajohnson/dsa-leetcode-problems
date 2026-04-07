@@ -14,5 +14,5 @@ class Solution:
             left=dfs(node.left,l,node.val)
             right=dfs(node.right,node.val,h)
             return left and right
-        return dfs(root, float("-inf"),float("inf"))
-            
+        return dfs(root,float('-inf'),float('inf'))
+        
