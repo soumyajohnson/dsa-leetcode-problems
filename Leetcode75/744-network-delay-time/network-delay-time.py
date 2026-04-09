@@ -1,20 +1,21 @@
-from collections import defaultdict
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
         graph=defaultdict(list)
         for u,v,w in times:
             graph[u].append((v,w))
-        minheap=[(0,k)]
-        time={i:float("inf") for i in range(1,n+1)}
-        time[k]=0
-        while minheap:
-            curr,u=heapq.heappop(minheap)
-            if curr>time[u]:
+        dist={}
+        for i in range(1,n+1):
+            dist[i]=float("inf")
+        dist[k]=0
+        q=[(k,0)]
+        while q:
+            u,d=heapq.heappop(q)
+            if d>dist[u]:
                 continue
             for v,w in graph[u]:
-                newtime=curr+w
-                if newtime<time[v]:
-                    time[v]=newtime
-                    heapq.heappush(minheap,(newtime,v))
-        res=max(time.values())
+                newd=d+w
+                if newd<dist[v]:
+                    dist[v]=newd
+                    heapq.heappush(q,(v,newd))
+        res=max(dist.values())
         return res if res!=float("inf") else -1
