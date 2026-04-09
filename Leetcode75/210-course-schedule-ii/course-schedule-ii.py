@@ -1,25 +1,25 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         graph=defaultdict(list)
-        for u,v in prerequisites:
-            graph[v].append(u)
+        for a,b in prerequisites:
+            graph[b].append(a)
         visited=set()
         finished=set()
-        stack=[]
-        def dfs(node):
-            if node in finished:
+        res=[]
+        def dfs(i):
+            if i in finished:
                 return True
-            if node in visited:
+            if i in visited:
                 return False
-            visited.add(node)
-            for v in graph[node]:
-                if not dfs(v):
+            visited.add(i)
+            for nei in graph[i]:
+                if not dfs(nei):
                     return False
-            finished.add(node)
-            visited.remove(node)
-            stack.append(node)
+            finished.add(i)
+            visited.remove(i)
+            res.append(i)
             return True
         for i in range(numCourses):
             if not dfs(i):
                 return []
-        return stack[::-1]
+        return res[::-1]
