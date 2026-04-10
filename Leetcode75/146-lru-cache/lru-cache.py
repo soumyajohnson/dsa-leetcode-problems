@@ -1,67 +1,56 @@
 class Node:
-    def __init__(self, key, val):
-        self.key = key
-        self.val = val
-        self.prev = None
-        self.next = None
-    
-class DLL:
-    def __init__(self):
-        self.head = Node(-1, -1)
-        self.tail = Node(-1, -1)
-        self.head.next = self.tail
-        self.tail.prev = self.head
+    def __init__(self,key, val):
+        self.key=key
+        self.val=val
+        self.next=None
+        self.prev=None
 
-    def removeFirst(self):
-        if self.head.next==self.tail:
-            return None
-        node=self.head.next
-        self.remove(node)
-        return node
-    
-    def remove(self,node):
-        node.prev.next=node.next
-        node.next.prev=node.prev
-        node.prev=None
-        node.next=None
+class LRUCache:
 
-    def addEnd(self,node):
+    def __init__(self, capacity: int):
+        self.cap=capacity
+        self.cache={}
+        self.head=Node(-1,-1)
+        self.tail=Node(-1,-1)
+        self.head.next=self.tail
+        self.tail.prev=self.head
+
+
+    def insert(self,node):
         last=self.tail.prev
         last.next=node
         node.prev=last
         node.next=self.tail
         self.tail.prev=node
 
-    def moveEnd(self,node):
-        self.remove(node)
-        self.addEnd(node)
-
-class LRUCache:
-
-    def __init__(self, capacity: int):
-        self.cap=capacity
-        self.lrumap={}
-        self.dll=DLL()
+    def remove(self, node):
+        prev_node=node.prev
+        next_node=node.next
+        prev_node.next=next_node
+        next_node.prev=prev_node
 
     def get(self, key: int) -> int:
-        node=self.lrumap.get(key, None)
-        if not node:
-            return -1
-        self.dll.moveEnd(node)
-        return node.val
-
+        if key in self.cache:
+            self.remove(self.cache[key])
+            self.insert(self.cache[key])
+            return self.cache[key].val
+        return -1
+        
     def put(self, key: int, value: int) -> None:
-        node=self.lrumap.get(key, None)
-        if node:
+        if key in self.cache:
+            node=self.cache[key]
             node.val=value
-            self.dll.moveEnd(node)
+            self.remove(node)
+            self.insert(node)
         else:
-            if len(self.lrumap)==self.cap:
-                node=self.dll.removeFirst().key
-                del self.lrumap[node]
-            node=Node(key, value)
-            self.dll.addEnd(node)
-            self.lrumap[key]=node
+            self.cache[key]=Node(key,value)
+            self.insert(self.cache[key])
+            if len(self.cache)>self.cap:
+                lru=self.head.next
+                self.remove(lru)
+                del self.cache[lru.key]
+        
+        
 
 
 # Your LRUCache object will be instantiated and called as such:
