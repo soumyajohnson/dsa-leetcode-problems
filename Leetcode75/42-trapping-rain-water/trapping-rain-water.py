@@ -1,21 +1,27 @@
 class Solution:
-    def trap(self, height: List[int]) -> int:
-        n=len(height)
-        l,r=0,n-1
-        leftmax=0
-        rightmax=0
-        water=0
-        while l<r:
-            if height[l]<height[r]:
-                if height[l]>leftmax:
-                    leftmax=height[l]
+    def trap(self, height: list[int]) -> int:
+        left = 0
+        right = len(height) - 1
+        left_max = 0
+        right_max = 0
+        water = 0
+
+        # Process the array from both ends.
+        while left < right:
+            # Process the side with the shorter boundary.
+            if height[left] <= height[right]:
+                # Update the left boundary or collect trapped water.
+                if height[left] >= left_max:
+                    left_max = height[left]
                 else:
-                    water+=leftmax-height[l]
-                l+=1
+                    water += left_max - height[left]
+                left += 1
             else:
-                if height[r]>rightmax:
-                    rightmax=height[r]
+                # Update the right boundary or collect trapped water.
+                if height[right] >= right_max:
+                    right_max = height[right]
                 else:
-                    water+=rightmax-height[r]
-                r-=1
+                    water += right_max - height[right]
+                right -= 1
+
         return water
