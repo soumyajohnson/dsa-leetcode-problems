@@ -5,10 +5,10 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    def rightSideView(self, root: TreeNode | None) -> list[int]:
         if not root:
             return []
-        res=[]
+        res=[] 
         q=deque([root])
         while q:
             l=len(q)
