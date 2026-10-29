@@ -1,6 +1,10 @@
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        strmap=defaultdict(list)
+    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+        if strs is None or len(strs)==1:
+            return [strs]
+        ann_map=defaultdict(list)
         for s in strs:
-            strmap[''.join(sorted(s))].append(s)
-        return list(strmap.values())
+            sorted_str="".join(sorted(s))
+            ann_map[sorted_str].append(s)
+        return list(ann_map.values())
+            
