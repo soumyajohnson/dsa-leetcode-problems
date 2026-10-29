@@ -4,9 +4,9 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        curr=head
+    def removeNthFromEnd(self, head: ListNode | None, n: int) -> ListNode | None:
         l=0
+        curr=head
         while curr:
             curr=curr.next
             l+=1
