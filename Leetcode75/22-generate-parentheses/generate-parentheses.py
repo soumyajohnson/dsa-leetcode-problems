@@ -1,13 +1,13 @@
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
+    def generateParenthesis(self, n: int) -> list[str]:
         res=[]
-        def dfs(curr,o,c):
-            if o==c and c==n:
+        def dfs(curr,opn,close):
+            if opn==n and close==n:
                 res.append(curr)
                 return
-            if o<n:
-                dfs(curr+'(',o+1,c)
-            if c<o:
-                dfs(curr+')',o,c+1)
+            if opn<n:
+                dfs(curr+"(",opn+1,close)
+            if close<opn:
+                dfs(curr+")",opn, close+1)
         dfs("",0,0)
         return res
